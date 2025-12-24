@@ -1,0 +1,28 @@
+[
+  {
+    "id": "job-1",
+    "title": "Frontend Developer Intern",
+    "company": "Acme Tech",
+    "location": "Remote",
+    "tags": ["React", "TypeScript", "Frontend"],
+    "eligibility": {
+      "minCgpa": 7.5,
+      "branches": ["CSE", "IT"]
+    },
+    "description": "Work on modern frontend applications using React and TypeScript.",
+    "atsKeywords": ["react", "typescript", "css", "html"]
+  },
+  {
+    "id": "job-2",
+    "title": "Software Engineer Intern",
+    "company": "Nova Labs",
+    "location": "Bangalore",
+    "tags": ["JavaScript", "Web", "Internship"],
+    "eligibility": {
+      "minCgpa": 8,
+      "branches": ["CSE", "IT", "ECE"]
+    },
+    "description": "Build scalable web products and collaborate with cross-functional teams.",
+    "atsKeywords": ["javascript", "problem solving", "git"]
+  }
+]
