@@ -87,7 +87,8 @@ http://localhost:5173
 
 
 🌐 Live Demo
-👉 (Will be added after deployment)
+👉 https://job-swipe-frontend.vercel.app/
+
 
 📌 Future Improvements
 
