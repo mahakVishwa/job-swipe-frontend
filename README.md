@@ -1,73 +1,106 @@
-# React + TypeScript + Vite
+# 🎯 Job Swipe – Student Job Discovery & Apply Flow
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A frontend-focused MVP for a college placement platform, designed to help students discover jobs using a swipe-based interface and apply with instant ATS feedback.
 
-Currently, two official plugins are available:
+This project was built as part of a frontend engineering assignment, focusing on **clean architecture, clear state flow, and realistic UX decisions** rather than feature overload.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🔥 **Swipe-based job discovery** (left = skip, right = interested)
+- 🧾 **Job detail modal**
+  - Job description preview
+  - Eligibility badges (CGPA & branches)
+- 📊 **Apply flow with mocked ATS scoring**
+  - ATS score
+  - Matched & missing keywords
+- 💡 **Gesture + button fallback UX**
+- 📱 Fully responsive (desktop + mobile)
+- 🎨 Smooth swipe animations using Framer Motion
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🧠 Design & Architecture Decisions
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 1. Feature-first structure
+The app is structured around features rather than generic folders to keep logic scalable and readable.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+        src/
+        ├── components/
+        │ └── job/
+        │ ├── JobCard.tsx
+        │ └── JobDetailModal.tsx
+        ├── pages/
+        │ ├── JobSwipe.tsx
+        │ └── ApplyConfirmation.tsx
+        ├── api/
+        │ └── jobs.api.ts
+        ├── data/
+        │ └── jobs.mock.json
+        ├── utils/
+        │ └── ats.mock.ts
+        ├── types/
+        │ └── job.types.ts
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. State-driven flow (no routing)
+Instead of routing between pages, the app uses **state transitions**:
+- Job Swipe → Apply Confirmation → Continue
+- Keeps UX fast and predictable
+- Matches real-world swipe interfaces (Tinder-style)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 3. Mocked ATS scoring (by design)
+ATS scoring is intentionally mocked using keyword overlap:
+- Keeps the focus on frontend architecture
+- Easy to explain and extend later
+- Avoids unnecessary ML complexity for this scope
+
+---
+
+### 4. Swipe UX with fallback buttons
+- Swipe gestures implemented using **Framer Motion**
+- Skip / Interested buttons act as accessible fallback
+- Visual swipe hints (LIKE / SKIP) improve clarity
+
+---
+
+## 🛠 Tech Stack
+
+- **React + TypeScript**
+- **Vite** for fast development
+- **Framer Motion** for swipe animations
+- **CSS-in-JS (inline styles)** for quick iteration
+
+---
+
+## 🚀 Getting Started Locally
+
+npm install
+npm run dev
+The app will run on:
+
+http://localhost:5173
+
+
+🌐 Live Demo
+👉 (Will be added after deployment)
+
+📌 Future Improvements
+
+
+    Persist applied jobs
+
+    Real backend integration
+
+    Enhanced ATS logic
+
+    Authentication & profiles
+
+    Swipe analytics
+
+🧑‍💻 Author - Mahak Vishwakarma
+Built with ❤️ as a frontend engineering assignment.
