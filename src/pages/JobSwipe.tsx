@@ -4,6 +4,7 @@ import type { Job } from "../types/job.types";
 import JobCard from "../components/job/JobCard";
 import ApplyConfirmation from "./ApplyConfirmation";
 import { calculateATS } from "../utils/ats.mock";
+import { AnimatePresence } from "framer-motion";
 
 const JobSwipe = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -51,7 +52,6 @@ const JobSwipe = () => {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            position: "relative",
           }}
         >
           <h1
@@ -63,7 +63,8 @@ const JobSwipe = () => {
               marginBottom: "48px",
               letterSpacing: "-1px",
               textShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
-              background: "linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%)",
+              background:
+                "linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -98,21 +99,16 @@ const JobSwipe = () => {
             </div>
           )}
 
-          {currentJob && (
-            <div
-              style={{
-                width: "100%",
-                maxWidth: "500px",
-                animation: "fadeSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-              }}
-            >
+          <AnimatePresence mode="wait">
+            {currentJob && (
               <JobCard
+                key={currentJob.id}
                 job={currentJob}
                 onSkip={handleSkip}
                 onInterested={handleInterested}
               />
-            </div>
-          )}
+            )}
+          </AnimatePresence>
         </div>
       )}
 
@@ -123,19 +119,6 @@ const JobSwipe = () => {
           onContinue={handleContinue}
         />
       )}
-
-      <style>{`
-        @keyframes fadeSlideIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </div>
   );
 };

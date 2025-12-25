@@ -1,5 +1,9 @@
 import type { Job } from "../../types/job.types";
-import { motion } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useTransform,
+} from "framer-motion";
 
 interface JobCardProps {
   job: Job;
@@ -8,19 +12,19 @@ interface JobCardProps {
 }
 
 const JobCard = ({ job, onSkip, onInterested }: JobCardProps) => {
+  const x = useMotionValue(0);
+
+  const rotate = useTransform(x, [-200, 200], [-10, 10]);
+  const likeOpacity = useTransform(x, [60, 120], [0, 1]);
+  const skipOpacity = useTransform(x, [-120, -60], [1, 0]);
+
   return (
     <motion.div
       drag="x"
-      dragConstraints={{ left: 0, right: 0 }}
-      whileDrag={{ scale: 1.05 }}
-      onDragEnd={(event, info) => {
-        if (info.offset.x > 120) {
-          onInterested();
-        } else if (info.offset.x < -120) {
-          onSkip();
-        }
-      }}
       style={{
+        x,
+        rotate,
+        position: "relative",
         background: "rgba(255, 255, 255, 0.15)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
@@ -31,9 +35,59 @@ const JobCard = ({ job, onSkip, onInterested }: JobCardProps) => {
         boxShadow:
           "0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.2)",
         border: "1px solid rgba(255, 255, 255, 0.2)",
-        transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
       }}
+      whileDrag={{ scale: 1.05 }}
+      onDragEnd={(event, info) => {
+        if (info.offset.x > 120) {
+          onInterested();
+        } else if (info.offset.x < -120) {
+          onSkip();
+        }
+      }}
+      exit={{
+        x: x.get() > 0 ? 300 : -300,
+        opacity: 0,
+      }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
+      {/* LIKE hint */}
+      <motion.div
+        style={{
+          position: "absolute",
+          top: "20px",
+          left: "20px",
+          padding: "8px 16px",
+          borderRadius: "12px",
+          background: "rgba(34, 197, 94, 0.9)",
+          color: "#fff",
+          fontWeight: 800,
+          fontSize: "14px",
+          letterSpacing: "1px",
+          opacity: likeOpacity,
+        }}
+      >
+        LIKE
+      </motion.div>
+
+      {/* SKIP hint */}
+      <motion.div
+        style={{
+          position: "absolute",
+          top: "20px",
+          right: "20px",
+          padding: "8px 16px",
+          borderRadius: "12px",
+          background: "rgba(239, 68, 68, 0.9)",
+          color: "#fff",
+          fontWeight: 800,
+          fontSize: "14px",
+          letterSpacing: "1px",
+          opacity: skipOpacity,
+        }}
+      >
+        SKIP
+      </motion.div>
+
       <h2
         style={{
           marginBottom: "8px",
@@ -79,7 +133,6 @@ const JobCard = ({ job, onSkip, onInterested }: JobCardProps) => {
               WebkitBackdropFilter: "blur(10px)",
               border: "1px solid rgba(255, 255, 255, 0.3)",
               boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-              transition: "all 0.3s ease",
             }}
           >
             {tag}
@@ -105,24 +158,6 @@ const JobCard = ({ job, onSkip, onInterested }: JobCardProps) => {
             color: "#ffffff",
             fontSize: "16px",
             fontWeight: "700",
-            backdropFilter: "blur(10px)",
-            WebkitBackdropFilter: "blur(10px)",
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-            transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "translateY(-2px)";
-            e.currentTarget.style.background =
-              "rgba(255, 255, 255, 0.15)";
-            e.currentTarget.style.boxShadow =
-              "0 6px 16px rgba(0, 0, 0, 0.2)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "translateY(0)";
-            e.currentTarget.style.background =
-              "rgba(255, 255, 255, 0.1)";
-            e.currentTarget.style.boxShadow =
-              "0 4px 12px rgba(0, 0, 0, 0.15)";
           }}
         >
           ❌ Skip
@@ -135,24 +170,11 @@ const JobCard = ({ job, onSkip, onInterested }: JobCardProps) => {
             padding: "16px 24px",
             borderRadius: "16px",
             border: "none",
-            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            background:
+              "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
             color: "#ffffff",
             fontSize: "16px",
             fontWeight: "700",
-            boxShadow: "0 8px 20px rgba(102, 126, 234, 0.4)",
-            transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "translateY(-2px)";
-            e.currentTarget.style.boxShadow =
-              "0 12px 28px rgba(102, 126, 234, 0.5)";
-            e.currentTarget.style.filter = "brightness(1.1)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "translateY(0)";
-            e.currentTarget.style.boxShadow =
-              "0 8px 20px rgba(102, 126, 234, 0.4)";
-            e.currentTarget.style.filter = "brightness(1)";
           }}
         >
           ✅ Interested
