@@ -3,6 +3,7 @@ import { fetchJobs } from "../api/jobs.api";
 import type { Job } from "../types/job.types";
 import JobCard from "../components/job/JobCard";
 import ApplyConfirmation from "./ApplyConfirmation";
+import JobDetailModal from "../components/job/JobDetailModal";
 import { calculateATS } from "../utils/ats.mock";
 import { AnimatePresence } from "framer-motion";
 
@@ -12,6 +13,8 @@ const JobSwipe = () => {
 
   const [appliedJob, setAppliedJob] = useState<Job | null>(null);
   const [atsResult, setAtsResult] = useState<any>(null);
+
+  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
 
   useEffect(() => {
     fetchJobs().then(setJobs);
@@ -106,6 +109,7 @@ const JobSwipe = () => {
                 job={currentJob}
                 onSkip={handleSkip}
                 onInterested={handleInterested}
+                onViewDetails={() => setSelectedJob(currentJob)}
               />
             )}
           </AnimatePresence>
@@ -117,6 +121,13 @@ const JobSwipe = () => {
           job={appliedJob}
           atsResult={atsResult}
           onContinue={handleContinue}
+        />
+      )}
+
+      {selectedJob && (
+        <JobDetailModal
+          job={selectedJob}
+          onClose={() => setSelectedJob(null)}
         />
       )}
     </div>

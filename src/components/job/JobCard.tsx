@@ -9,9 +9,15 @@ interface JobCardProps {
   job: Job;
   onSkip: () => void;
   onInterested: () => void;
+  onViewDetails: () => void;
 }
 
-const JobCard = ({ job, onSkip, onInterested }: JobCardProps) => {
+const JobCard = ({
+  job,
+  onSkip,
+  onInterested,
+  onViewDetails,
+}: JobCardProps) => {
   const x = useMotionValue(0);
 
   const rotate = useTransform(x, [-200, 200], [-10, 10]);
@@ -140,9 +146,27 @@ const JobCard = ({ job, onSkip, onInterested }: JobCardProps) => {
         ))}
       </div>
 
+      {/* View Details */}
+      <button
+        onClick={onViewDetails}
+        style={{
+          marginTop: "20px",
+          width: "100%",
+          padding: "12px",
+          borderRadius: "14px",
+          background: "rgba(255, 255, 255, 0.15)",
+          border: "1px solid rgba(255, 255, 255, 0.3)",
+          color: "#ffffff",
+          fontSize: "14px",
+          fontWeight: "600",
+        }}
+      >
+        View Details
+      </button>
+
       <div
         style={{
-          marginTop: "32px",
+          marginTop: "24px",
           display: "flex",
           gap: "16px",
         }}
