@@ -38,9 +38,10 @@ const JobSwipe = () => {
     if (!pendingJob) return;
 
     const ats = calculateATS(
-      "react javascript css html git",
-      pendingJob.atsKeywords
-    );
+      "react javascript css html git python django api backend docker data cloud ml",
+      currentJob.atsKeywords
+  );
+
 
     setAppliedJob(pendingJob);
     setAtsResult(ats);
@@ -128,7 +129,7 @@ const JobSwipe = () => {
                   margin: 0,
                 }}
               >
-                No more jobs available
+                You’ve reached the end — check back later for new roles ✨
               </p>
             </div>
           )}

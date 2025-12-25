@@ -24,5 +24,54 @@
     },
     "description": "Build scalable web products and collaborate with cross-functional teams.",
     "atsKeywords": ["javascript", "problem solving", "git"]
+  },
+  {
+  "id": 3,
+  "title": "Backend Engineer Intern",
+  "company": "DataForge",
+  "tags": ["Node.js", "APIs", "Databases"],
+  "description": "Design REST APIs and work with databases to power scalable backend systems.",
+  "eligibility": {
+    "minCgpa": 7.5,
+    "branches": ["CSE", "IT"]
+  },
+  "atsKeywords": ["node", "api", "database", "backend"]
+  },
+  {
+  "id": 4,
+  "title": "AI/ML Intern",
+  "company": "NeuroLabs",
+  "tags": ["Machine Learning", "Python", "Data"],
+  "description": "Work on data preprocessing, model training, and evaluation for ML pipelines.",
+  "eligibility": {
+    "minCgpa": 8,
+    "branches": ["CSE", "IT"]
+  },
+  "atsKeywords": ["python", "machine learning", "data", "ml"]
+  },
+  {
+  "id": 5,
+  "title": "Python Developer Intern",
+  "company": "WebNest",
+  "tags": ["Python", "Django", "Backend"],
+  "description": "Build backend services and dashboards using Django and PostgreSQL.",
+  "eligibility": {
+    "minCgpa": 7,
+    "branches": ["CSE", "IT", "ECE"]
+  },
+  "atsKeywords": ["python", "django", "backend", "sql"]
+  },
+  {
+  "id": "job-6",
+  "title": "DevOps Intern",
+  "company": "CloudOps",
+  "tags": ["Docker", "CI/CD", "Cloud"],
+  "description": "Assist in automating deployments and managing cloud infrastructure.",
+  "eligibility": {
+    "minCgpa": 8,
+    "branches": ["CSE", "IT"]
+  },
+  "atsKeywords": ["docker", "ci/cd", "cloud", "devops"]
   }
+
 ]
