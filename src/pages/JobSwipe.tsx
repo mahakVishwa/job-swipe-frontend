@@ -43,17 +43,75 @@ const JobSwipe = () => {
   return (
     <div>
       {!appliedJob && (
-        <div style={{ padding: "24px" }}>
-          <h1>Job Swipe</h1>
+        <div
+          style={{
+            padding: "40px 24px",
+            minHeight: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "relative",
+          }}
+        >
+          <h1
+            style={{
+              fontSize: "48px",
+              fontWeight: "800",
+              color: "#ffffff",
+              textAlign: "center",
+              marginBottom: "48px",
+              letterSpacing: "-1px",
+              textShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
+              background: "linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            Job Swipe
+          </h1>
 
-          {!currentJob && <p>No more jobs 🎉</p>}
+          {!currentJob && (
+            <div
+              style={{
+                background: "rgba(255, 255, 255, 0.15)",
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                borderRadius: "24px",
+                padding: "48px 64px",
+                boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3)",
+                border: "1px solid rgba(255, 255, 255, 0.2)",
+                textAlign: "center",
+              }}
+            >
+              <p
+                style={{
+                  fontSize: "24px",
+                  fontWeight: "600",
+                  color: "#ffffff",
+                  margin: 0,
+                }}
+              >
+                No more jobs 🎉
+              </p>
+            </div>
+          )}
 
           {currentJob && (
-            <JobCard
-              job={currentJob}
-              onSkip={handleSkip}
-              onInterested={handleInterested}
-            />
+            <div
+              style={{
+                width: "100%",
+                maxWidth: "500px",
+                animation: "fadeSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+              }}
+            >
+              <JobCard
+                job={currentJob}
+                onSkip={handleSkip}
+                onInterested={handleInterested}
+              />
+            </div>
           )}
         </div>
       )}
@@ -65,6 +123,19 @@ const JobSwipe = () => {
           onContinue={handleContinue}
         />
       )}
+
+      <style>{`
+        @keyframes fadeSlideIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </div>
   );
 };
