@@ -1,107 +1,122 @@
-# 🎯 Job Swipe – Student Job Discovery & Apply Flow
+# 🎯 Job Swipe – Smart Job Discovery & Apply Flow
 
-A frontend-focused MVP for a college placement platform, designed to help students discover jobs using a swipe-based interface and apply with instant ATS feedback.
+A frontend-focused product demo for a modern college placement platform, designed to help students **discover jobs, review eligibility, and apply intentionally** using a swipe-based interface.
 
-This project was built as part of a frontend engineering assignment, focusing on **clean architecture, clear state flow, and realistic UX decisions** rather than feature overload.
+Built as part of a frontend engineering assignment, this project emphasizes **clean architecture, state-driven UX, and realistic product decisions** over feature overload or backend complexity.
+
+🔗 **Live Demo:**  
+      https://job-swipe-frontend.vercel.app/
 
 ---
 
 ## ✨ Features
 
-- 🔥 **Swipe-based job discovery** (left = skip, right = interested)
-- 🧾 **Job detail modal**
-  - Job description preview
-  - Eligibility badges (CGPA & branches)
-- 📊 **Apply flow with mocked ATS scoring**
-  - ATS score
-  - Matched & missing keywords
-- 💡 **Gesture + button fallback UX**
-- 📱 Fully responsive (desktop + mobile)
-- 🎨 Smooth swipe animations using Framer Motion
+      -  Swipe-based job discovery (left = skip, right = interested)
+      -  Diverse technical roles  
+        *(Frontend, Backend, Python/Django, AI/ML, DevOps, Mobile)*
+      -  Job detail preview
+        - Role description
+        - Eligibility badges (CGPA & branches)
+      -  Confirmation modal to prevent accidental applications
+      -  Apply flow with mocked ATS scoring
+        - Match percentage
+        - Matched & missing keywords
+      -  Gesture-first UX with button fallback
+      -  Fully responsive (desktop + mobile)
+      -  Smooth animations using Framer Motion
 
 ---
 
 ## 🧠 Design & Architecture Decisions
 
 ### 1. Feature-first structure
-The app is structured around features rather than generic folders to keep logic scalable and readable.
+The project follows a feature-first folder structure to keep related logic colocated and scalable.
 
-        src/
-        ├── components/
-        │ └── job/
-        │ ├── JobCard.tsx
-        │ └── JobDetailModal.tsx
-        ├── pages/
-        │ ├── JobSwipe.tsx
-        │ └── ApplyConfirmation.tsx
-        ├── api/
-        │ └── jobs.api.ts
-        ├── data/
-        │ └── jobs.mock.json
-        ├── utils/
-        │ └── ats.mock.ts
-        ├── types/
-        │ └── job.types.ts
+            src/
+      ├── components/
+      │ └── job/
+      │ ├── JobCard.tsx
+      │ ├── JobDetailModal.tsx
+      │ └── ConfirmApplyModal.tsx
+      ├── pages/
+      │ ├── JobSwipe.tsx
+      │ └── ApplyConfirmation.tsx
+      ├── api/
+      │ └── jobs.api.ts
+      ├── data/
+      │ └── jobs.mock.json
+      ├── utils/
+      │ └── ats.mock.ts
+      ├── types/
+      │ └── job.types.ts
+
 
 ---
 
 ### 2. State-driven flow (no routing)
-Instead of routing between pages, the app uses **state transitions**:
-- Job Swipe → Apply Confirmation → Continue
-- Keeps UX fast and predictable
-- Matches real-world swipe interfaces (Tinder-style)
+      Instead of routing between pages, the app uses **state transitions**:
+
+      - Discover jobs → Confirm apply → Application submitted
+      - Keeps UX fast and predictable
+      - Mirrors real-world swipe-based interfaces
 
 ---
 
-### 3. Mocked ATS scoring (by design)
-ATS scoring is intentionally mocked using keyword overlap:
-- Keeps the focus on frontend architecture
-- Easy to explain and extend later
-- Avoids unnecessary ML complexity for this scope
+### 3. UX safety: confirmation before applying
+
+      Since swipe gestures can be accidental, a **confirmation modal** is introduced before submitting an application.  
+      This ensures intentional user actions and improves trust in the apply flow.
 
 ---
 
-### 4. Swipe UX with fallback buttons
-- Swipe gestures implemented using **Framer Motion**
-- Skip / Interested buttons act as accessible fallback
-- Visual swipe hints (LIKE / SKIP) improve clarity
+### 4. Mocked ATS scoring (by design)
+
+      ATS scoring is intentionally simplified using keyword overlap:
+      - Keeps the focus on frontend architecture
+      - Easy to understand and extend
+      - Avoids unnecessary ML complexity for the scope of this assignment
+
+---
+
+### 5. Swipe UX with fallback buttons
+
+
+      - Swipe gestures implemented using **Framer Motion**
+      - Skip / Interested buttons act as accessible fallback
+      - Visual swipe hints (LIKE / SKIP) improve clarity
 
 ---
 
 ## 🛠 Tech Stack
 
-- **React + TypeScript**
-- **Vite** for fast development
-- **Framer Motion** for swipe animations
-- **CSS-in-JS (inline styles)** for quick iteration
+      - React + TypeScript  
+      - Vite  
+      - Framer Motion  
+      - CSS-in-JS (inline styles) for rapid iteration
 
 ---
 
 ## 🚀 Getting Started Locally
 
-npm install
-npm run dev
-The app will run on:
 
-http://localhost:5173
+      npm install
+      npm run dev
 
+      The app will run on: http://localhost:5173
 
-🌐 Live Demo
-👉 https://job-swipe-frontend.vercel.app/
+## 📌 Possible Extensions
 
+      Persist applied jobs
 
-📌 Future Improvements
+      Role-based skill matching
 
+      Backend integration
 
-    Persist applied jobs
+      Authentication & user profiles
 
-    Real backend integration
+      Swipe analytics
 
-    Enhanced ATS logic
+## 🧑‍💻 Author
 
-    Authentication & profiles
-
-    Swipe analytics
-
-🧑‍💻 Author - Mahak Vishwakarma
-Built with ❤️ as a frontend engineering assignment.
+      Mahak Vishwakarma
+      Built with ❤️ as a frontend engineering assignment.
