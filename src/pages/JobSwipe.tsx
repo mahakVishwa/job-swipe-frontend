@@ -4,6 +4,7 @@ import type { Job } from "../types/job.types";
 import JobCard from "../components/job/JobCard";
 import ApplyConfirmation from "./ApplyConfirmation";
 import JobDetailModal from "../components/job/JobDetailModal";
+import ConfirmApplyModal from "../components/job/ConfirmApplyModal";
 import { calculateATS } from "../utils/ats.mock";
 import { AnimatePresence } from "framer-motion";
 
@@ -15,6 +16,7 @@ const JobSwipe = () => {
   const [atsResult, setAtsResult] = useState<any>(null);
 
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+  const [pendingJob, setPendingJob] = useState<Job | null>(null);
 
   useEffect(() => {
     fetchJobs().then(setJobs);
@@ -26,16 +28,27 @@ const JobSwipe = () => {
     setCurrentIndex((prev) => prev + 1);
   };
 
+  // 🔁 Instead of applying directly, open confirm modal
   const handleInterested = () => {
     if (!currentJob) return;
+    setPendingJob(currentJob);
+  };
+
+  const confirmApply = () => {
+    if (!pendingJob) return;
 
     const ats = calculateATS(
       "react javascript css html git",
-      currentJob.atsKeywords
+      pendingJob.atsKeywords
     );
 
-    setAppliedJob(currentJob);
+    setAppliedJob(pendingJob);
     setAtsResult(ats);
+    setPendingJob(null);
+  };
+
+  const cancelApply = () => {
+    setPendingJob(null);
   };
 
   const handleContinue = () => {
@@ -135,6 +148,7 @@ const JobSwipe = () => {
         </div>
       )}
 
+      {/* Apply Confirmation */}
       {appliedJob && atsResult && (
         <ApplyConfirmation
           job={appliedJob}
@@ -143,10 +157,20 @@ const JobSwipe = () => {
         />
       )}
 
+      {/* Job Detail Modal */}
       {selectedJob && (
         <JobDetailModal
           job={selectedJob}
           onClose={() => setSelectedJob(null)}
+        />
+      )}
+
+      {/* Confirm Apply Modal */}
+      {pendingJob && (
+        <ConfirmApplyModal
+          job={pendingJob}
+          onConfirm={confirmApply}
+          onCancel={cancelApply}
         />
       )}
     </div>

@@ -18,240 +18,210 @@ const ApplyConfirmation = ({
   return (
     <div
       style={{
-        padding: "40px 24px",
+        padding: "32px 20px",
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        fontFamily:
+          "Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
       }}
     >
       <div
         style={{
-          padding: "40px",
-          maxWidth: "550px",
+          maxWidth: "520px",
           width: "100%",
           background: "rgba(255, 255, 255, 0.15)",
           backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
           borderRadius: "24px",
-          boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.2)",
+          padding: "28px",
+          boxShadow:
+            "0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.2)",
           border: "1px solid rgba(255, 255, 255, 0.2)",
-          animation: "fadeSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
-        <h1
-          style={{
-            fontSize: "36px",
-            fontWeight: "800",
-            color: "#ffffff",
-            marginBottom: "32px",
-            textAlign: "center",
-            letterSpacing: "-0.5px",
-          }}
-        >
-          Application Submitted 🎉
-        </h1>
+        {/* Header */}
+        <div style={{ textAlign: "center", marginBottom: "24px" }}>
+          <h1
+            style={{
+              fontSize: "28px",
+              fontWeight: 800,
+              color: "#ffffff",
+              margin: 0,
+              letterSpacing: "-0.4px",
+            }}
+          >
+            Application Submitted 🎉
+          </h1>
+          <p
+            style={{
+              marginTop: "6px",
+              fontSize: "14px",
+              color: "rgba(255,255,255,0.7)",
+            }}
+          >
+            Your application has been successfully recorded
+          </p>
+        </div>
 
+        {/* Job Info */}
         <div
           style={{
             background: "rgba(255, 255, 255, 0.1)",
             borderRadius: "16px",
-            padding: "24px",
-            marginBottom: "32px",
+            padding: "18px",
+            marginBottom: "20px",
             border: "1px solid rgba(255, 255, 255, 0.2)",
           }}
         >
           <h2
             style={{
-              fontSize: "24px",
-              fontWeight: "700",
+              fontSize: "20px",
+              fontWeight: 700,
               color: "#ffffff",
-              marginBottom: "8px",
-              marginTop: 0,
+              margin: "0 0 6px 0",
             }}
           >
             {job.title}
           </h2>
           <p
             style={{
-              fontSize: "18px",
-              color: "rgba(255, 255, 255, 0.8)",
+              fontSize: "15px",
+              color: "rgba(255,255,255,0.8)",
               margin: 0,
-              fontWeight: "500",
             }}
           >
             {job.company}
           </p>
         </div>
 
+        {/* ATS Section */}
         <div
           style={{
-            background: "linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%)",
+            background:
+              "linear-gradient(135deg, rgba(102,126,234,0.3), rgba(118,75,162,0.3))",
             borderRadius: "16px",
-            padding: "24px",
-            marginBottom: "24px",
-            border: "1px solid rgba(255, 255, 255, 0.3)",
+            padding: "18px",
+            marginBottom: "20px",
+            border: "1px solid rgba(255,255,255,0.25)",
             textAlign: "center",
           }}
         >
-          <h3
+          <p
             style={{
-              fontSize: "20px",
-              fontWeight: "600",
-              color: "rgba(255, 255, 255, 0.9)",
-              marginTop: 0,
-              marginBottom: "8px",
+              fontSize: "14px",
+              fontWeight: 600,
+              color: "rgba(255,255,255,0.8)",
+              margin: 0,
             }}
           >
-            ATS Score
-          </h3>
+            ATS Match Score
+          </p>
           <div
             style={{
-              fontSize: "48px",
-              fontWeight: "800",
+              fontSize: "40px",
+              fontWeight: 800,
               color: "#ffffff",
-              textShadow: "0 2px 10px rgba(0, 0, 0, 0.2)",
+              marginTop: "4px",
             }}
           >
             {atsResult.score}%
           </div>
         </div>
 
-        <div
-          style={{
-            marginBottom: "20px",
-          }}
-        >
-          <h4
-            style={{
-              fontSize: "16px",
-              fontWeight: "700",
-              color: "#ffffff",
-              marginBottom: "12px",
-              marginTop: 0,
-              textTransform: "uppercase",
-              letterSpacing: "0.5px",
-            }}
-          >
-            ✅ Matched Keywords
-          </h4>
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "8px",
-            }}
-          >
-            {atsResult.matchedKeywords.map((keyword) => (
-              <span
-                key={keyword}
-                style={{
-                  padding: "8px 14px",
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  background: "rgba(134, 239, 172, 0.3)",
-                  color: "#ffffff",
-                  borderRadius: "999px",
-                  border: "1px solid rgba(134, 239, 172, 0.5)",
-                  backdropFilter: "blur(10px)",
-                  WebkitBackdropFilter: "blur(10px)",
-                }}
-              >
-                {keyword}
-              </span>
-            ))}
-          </div>
+        {/* Keywords */}
+        <div style={{ marginBottom: "20px" }}>
+          <KeywordGroup
+            title="Matched Keywords"
+            items={atsResult.matchedKeywords}
+            type="success"
+          />
         </div>
 
-        <div
-          style={{
-            marginBottom: "32px",
-          }}
-        >
-          <h4
-            style={{
-              fontSize: "16px",
-              fontWeight: "700",
-              color: "#ffffff",
-              marginBottom: "12px",
-              marginTop: 0,
-              textTransform: "uppercase",
-              letterSpacing: "0.5px",
-            }}
-          >
-            ⚠️ Missing Keywords
-          </h4>
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "8px",
-            }}
-          >
-            {atsResult.missingKeywords.map((keyword) => (
-              <span
-                key={keyword}
-                style={{
-                  padding: "8px 14px",
-                  fontSize: "13px",
-                  fontWeight: "600",
-                  background: "rgba(248, 113, 113, 0.3)",
-                  color: "#ffffff",
-                  borderRadius: "999px",
-                  border: "1px solid rgba(248, 113, 113, 0.5)",
-                  backdropFilter: "blur(10px)",
-                  WebkitBackdropFilter: "blur(10px)",
-                }}
-              >
-                {keyword}
-              </span>
-            ))}
-          </div>
+        <div style={{ marginBottom: "28px" }}>
+          <KeywordGroup
+            title="Missing Keywords"
+            items={atsResult.missingKeywords}
+            type="danger"
+          />
         </div>
 
+        {/* CTA */}
         <button
           onClick={onContinue}
           style={{
             width: "100%",
-            padding: "16px 24px",
-            borderRadius: "16px",
+            padding: "14px",
+            borderRadius: "14px",
             border: "none",
-            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            background:
+              "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
             color: "#ffffff",
-            fontSize: "18px",
-            fontWeight: "700",
-            boxShadow: "0 8px 20px rgba(102, 126, 234, 0.4)",
-            transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+            fontSize: "16px",
+            fontWeight: 700,
             cursor: "pointer",
           }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "translateY(-2px)";
-            e.currentTarget.style.boxShadow = "0 12px 28px rgba(102, 126, 234, 0.5)";
-            e.currentTarget.style.filter = "brightness(1.1)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "translateY(0)";
-            e.currentTarget.style.boxShadow = "0 8px 20px rgba(102, 126, 234, 0.4)";
-            e.currentTarget.style.filter = "brightness(1)";
-          }}
         >
-          Continue
+          Continue Browsing
         </button>
       </div>
-
-      <style>{`
-        @keyframes fadeSlideIn {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </div>
+  );
+};
+
+const KeywordGroup = ({
+  title,
+  items,
+  type,
+}: {
+  title: string;
+  items: string[];
+  type: "success" | "danger";
+}) => {
+  const colors =
+    type === "success"
+      ? {
+          bg: "rgba(134,239,172,0.25)",
+          border: "rgba(134,239,172,0.5)",
+        }
+      : {
+          bg: "rgba(248,113,113,0.25)",
+          border: "rgba(248,113,113,0.5)",
+        };
+
+  return (
+    <>
+      <p
+        style={{
+          fontSize: "13px",
+          fontWeight: 700,
+          color: "#ffffff",
+          marginBottom: "10px",
+          textTransform: "uppercase",
+          letterSpacing: "0.6px",
+        }}
+      >
+        {title}
+      </p>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+        {items.map((item) => (
+          <span
+            key={item}
+            style={{
+              padding: "6px 12px",
+              fontSize: "12px",
+              fontWeight: 600,
+              background: colors.bg,
+              border: `1px solid ${colors.border}`,
+              borderRadius: "999px",
+              color: "#ffffff",
+            }}
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+    </>
   );
 };
 
