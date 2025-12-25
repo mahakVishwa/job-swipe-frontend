@@ -49,33 +49,49 @@ const JobSwipe = () => {
       {!appliedJob && (
         <div
           style={{
-            padding: "40px 24px",
+            padding: "48px 24px",
             minHeight: "100vh",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <h1
+          {/* Section Header */}
+          <div
             style={{
-              fontSize: "48px",
-              fontWeight: "800",
-              color: "#ffffff",
+              width: "100%",
+              maxWidth: "900px",
+              marginBottom: "40px",
               textAlign: "center",
-              marginBottom: "48px",
-              letterSpacing: "-1px",
-              textShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
-              background:
-                "linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
+              fontFamily:
+                "Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
             }}
           >
-            Job Swipe
-          </h1>
+            <h1
+              style={{
+                fontSize: "34px",
+                fontWeight: 700,
+                margin: 0,
+                color: "#ffffff",
+                letterSpacing: "-0.6px",
+              }}
+            >
+              Discover Opportunities
+            </h1>
 
+            <p
+              style={{
+                marginTop: "10px",
+                fontSize: "15px",
+                color: "rgba(255,255,255,0.7)",
+                lineHeight: 1.5,
+              }}
+            >
+              Swipe to explore roles that match your skills and eligibility
+            </p>
+          </div>
+
+          {/* Empty State */}
           {!currentJob && (
             <div
               style={{
@@ -83,25 +99,28 @@ const JobSwipe = () => {
                 backdropFilter: "blur(20px)",
                 WebkitBackdropFilter: "blur(20px)",
                 borderRadius: "24px",
-                padding: "48px 64px",
+                padding: "40px 56px",
                 boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3)",
                 border: "1px solid rgba(255, 255, 255, 0.2)",
                 textAlign: "center",
+                fontFamily:
+                  "Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
               }}
             >
               <p
                 style={{
-                  fontSize: "24px",
-                  fontWeight: "600",
+                  fontSize: "20px",
+                  fontWeight: 600,
                   color: "#ffffff",
                   margin: 0,
                 }}
               >
-                No more jobs 🎉
+                No more jobs available
               </p>
             </div>
           )}
 
+          {/* Job Card */}
           <AnimatePresence mode="wait">
             {currentJob && (
               <JobCard

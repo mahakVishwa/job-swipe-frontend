@@ -1,11 +1,12 @@
 import JobSwipe from "./pages/JobSwipe";
+import AppLayout from "./components/layout/AppLayout";
 
-const App = () => {
+function App() {
   return (
-    <div>
+    <AppLayout>
       <JobSwipe />
-    </div>
+    </AppLayout>
   );
-};
+}
 
 export default App;
