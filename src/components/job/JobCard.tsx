@@ -37,7 +37,7 @@ const JobCard = ({ job, onSkip, onInterested }: JobCardProps) => {
         border: "1px solid rgba(255, 255, 255, 0.2)",
       }}
       whileDrag={{ scale: 1.05 }}
-      onDragEnd={(event, info) => {
+      onDragEnd={(_, info) => {
         if (info.offset.x > 120) {
           onInterested();
         } else if (info.offset.x < -120) {
