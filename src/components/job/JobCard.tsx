@@ -1,4 +1,5 @@
 import type { Job } from "../../types/job.types";
+import { motion } from "framer-motion";
 
 interface JobCardProps {
   job: Job;
@@ -8,7 +9,17 @@ interface JobCardProps {
 
 const JobCard = ({ job, onSkip, onInterested }: JobCardProps) => {
   return (
-    <div
+    <motion.div
+      drag="x"
+      dragConstraints={{ left: 0, right: 0 }}
+      whileDrag={{ scale: 1.05 }}
+      onDragEnd={(event, info) => {
+        if (info.offset.x > 120) {
+          onInterested();
+        } else if (info.offset.x < -120) {
+          onSkip();
+        }
+      }}
       style={{
         background: "rgba(255, 255, 255, 0.15)",
         backdropFilter: "blur(20px)",
@@ -17,35 +28,43 @@ const JobCard = ({ job, onSkip, onInterested }: JobCardProps) => {
         padding: "32px",
         maxWidth: "450px",
         margin: "0 auto",
-        boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.2)",
+        boxShadow:
+          "0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.2)",
         border: "1px solid rgba(255, 255, 255, 0.2)",
         transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
       }}
     >
-      <h2 style={{ 
-        marginBottom: "8px",
-        fontSize: "28px",
-        fontWeight: "700",
-        color: "#ffffff",
-        letterSpacing: "-0.5px"
-      }}>
+      <h2
+        style={{
+          marginBottom: "8px",
+          fontSize: "28px",
+          fontWeight: "700",
+          color: "#ffffff",
+          letterSpacing: "-0.5px",
+        }}
+      >
         {job.title}
       </h2>
-      <p style={{ 
-        marginTop: 0, 
-        color: "rgba(255, 255, 255, 0.8)",
-        fontSize: "16px",
-        fontWeight: "500"
-      }}>
+
+      <p
+        style={{
+          marginTop: 0,
+          color: "rgba(255, 255, 255, 0.8)",
+          fontSize: "16px",
+          fontWeight: "500",
+        }}
+      >
         {job.company}
       </p>
 
-      <div style={{ 
-        marginTop: "24px", 
-        display: "flex", 
-        gap: "10px", 
-        flexWrap: "wrap" 
-      }}>
+      <div
+        style={{
+          marginTop: "24px",
+          display: "flex",
+          gap: "10px",
+          flexWrap: "wrap",
+        }}
+      >
         {job.tags.map((tag) => (
           <span
             key={tag}
@@ -93,13 +112,17 @@ const JobCard = ({ job, onSkip, onInterested }: JobCardProps) => {
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = "translateY(-2px)";
-            e.currentTarget.style.background = "rgba(255, 255, 255, 0.15)";
-            e.currentTarget.style.boxShadow = "0 6px 16px rgba(0, 0, 0, 0.2)";
+            e.currentTarget.style.background =
+              "rgba(255, 255, 255, 0.15)";
+            e.currentTarget.style.boxShadow =
+              "0 6px 16px rgba(0, 0, 0, 0.2)";
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = "translateY(0)";
-            e.currentTarget.style.background = "rgba(255, 255, 255, 0.1)";
-            e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.15)";
+            e.currentTarget.style.background =
+              "rgba(255, 255, 255, 0.1)";
+            e.currentTarget.style.boxShadow =
+              "0 4px 12px rgba(0, 0, 0, 0.15)";
           }}
         >
           ❌ Skip
@@ -121,19 +144,21 @@ const JobCard = ({ job, onSkip, onInterested }: JobCardProps) => {
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = "translateY(-2px)";
-            e.currentTarget.style.boxShadow = "0 12px 28px rgba(102, 126, 234, 0.5)";
+            e.currentTarget.style.boxShadow =
+              "0 12px 28px rgba(102, 126, 234, 0.5)";
             e.currentTarget.style.filter = "brightness(1.1)";
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = "translateY(0)";
-            e.currentTarget.style.boxShadow = "0 8px 20px rgba(102, 126, 234, 0.4)";
+            e.currentTarget.style.boxShadow =
+              "0 8px 20px rgba(102, 126, 234, 0.4)";
             e.currentTarget.style.filter = "brightness(1)";
           }}
         >
           ✅ Interested
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
