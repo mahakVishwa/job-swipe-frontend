@@ -12,6 +12,15 @@ const JobSwipe = () => {
 
   const currentJob = jobs[currentIndex];
 
+  const handleSkip = () => {
+    setCurrentIndex((prev) => prev + 1);
+  };
+
+  const handleInterested = () => {
+    console.log("Interested in:", currentJob);
+    setCurrentIndex((prev) => prev + 1);
+  };
+
   return (
     <div style={{ padding: "24px" }}>
       <h1>Job Swipe</h1>
@@ -22,6 +31,11 @@ const JobSwipe = () => {
         <div style={{ marginTop: "20px" }}>
           <h2>{currentJob.title}</h2>
           <p>{currentJob.company}</p>
+
+          <div style={{ marginTop: "16px", display: "flex", gap: "12px" }}>
+            <button onClick={handleSkip}>❌ Skip</button>
+            <button onClick={handleInterested}>✅ Interested</button>
+          </div>
         </div>
       )}
     </div>
