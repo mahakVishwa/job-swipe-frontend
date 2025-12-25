@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchJobs } from "../api/jobs.api";
 import type { Job } from "../types/job.types";
+import JobCard from "../components/job/JobCard";
 
 const JobSwipe = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -28,15 +29,11 @@ const JobSwipe = () => {
       {!currentJob && <p>No more jobs 🎉</p>}
 
       {currentJob && (
-        <div style={{ marginTop: "20px" }}>
-          <h2>{currentJob.title}</h2>
-          <p>{currentJob.company}</p>
-
-          <div style={{ marginTop: "16px", display: "flex", gap: "12px" }}>
-            <button onClick={handleSkip}>❌ Skip</button>
-            <button onClick={handleInterested}>✅ Interested</button>
-          </div>
-        </div>
+        <JobCard
+          job={currentJob}
+          onSkip={handleSkip}
+          onInterested={handleInterested}
+        />
       )}
     </div>
   );
