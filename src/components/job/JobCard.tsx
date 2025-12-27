@@ -7,9 +7,10 @@ import {
 
 interface JobCardProps {
   job: Job;
-  onSkip: () => void;
-  onInterested: () => void;
+  onSkip?: () => void;
+  onInterested?: () => void;
   onViewDetails: () => void;
+  readOnly?: boolean;
 }
 
 const JobCard = ({
@@ -17,6 +18,7 @@ const JobCard = ({
   onSkip,
   onInterested,
   onViewDetails,
+  readOnly = false,
 }: JobCardProps) => {
   const x = useMotionValue(0);
 
@@ -26,7 +28,7 @@ const JobCard = ({
 
   return (
     <motion.div
-      drag="x"
+      drag={readOnly ? false : "x"}
       style={{
         x,
         rotate,
@@ -37,17 +39,19 @@ const JobCard = ({
         borderRadius: "24px",
         padding: "32px",
         maxWidth: "450px",
-        margin: "0 auto",
+        margin: "0 auto 32px",
         boxShadow:
           "0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.2)",
         border: "1px solid rgba(255, 255, 255, 0.2)",
       }}
-      whileDrag={{ scale: 1.05 }}
+      whileDrag={!readOnly ? { scale: 1.05 } : undefined}
       onDragEnd={(_, info) => {
+        if (readOnly) return;
+
         if (info.offset.x > 120) {
-          onInterested();
+          onInterested?.();
         } else if (info.offset.x < -120) {
-          onSkip();
+          onSkip?.();
         }
       }}
       exit={{
@@ -57,42 +61,46 @@ const JobCard = ({
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
       {/* LIKE hint */}
-      <motion.div
-        style={{
-          position: "absolute",
-          top: "20px",
-          left: "20px",
-          padding: "8px 16px",
-          borderRadius: "12px",
-          background: "rgba(34, 197, 94, 0.9)",
-          color: "#fff",
-          fontWeight: 800,
-          fontSize: "14px",
-          letterSpacing: "1px",
-          opacity: likeOpacity,
-        }}
-      >
-        LIKE
-      </motion.div>
+      {!readOnly && (
+        <motion.div
+          style={{
+            position: "absolute",
+            top: "20px",
+            left: "20px",
+            padding: "8px 16px",
+            borderRadius: "12px",
+            background: "rgba(34, 197, 94, 0.9)",
+            color: "#fff",
+            fontWeight: 800,
+            fontSize: "14px",
+            letterSpacing: "1px",
+            opacity: likeOpacity,
+          }}
+        >
+          LIKE
+        </motion.div>
+      )}
 
       {/* SKIP hint */}
-      <motion.div
-        style={{
-          position: "absolute",
-          top: "20px",
-          right: "20px",
-          padding: "8px 16px",
-          borderRadius: "12px",
-          background: "rgba(239, 68, 68, 0.9)",
-          color: "#fff",
-          fontWeight: 800,
-          fontSize: "14px",
-          letterSpacing: "1px",
-          opacity: skipOpacity,
-        }}
-      >
-        SKIP
-      </motion.div>
+      {!readOnly && (
+        <motion.div
+          style={{
+            position: "absolute",
+            top: "20px",
+            right: "20px",
+            padding: "8px 16px",
+            borderRadius: "12px",
+            background: "rgba(239, 68, 68, 0.9)",
+            color: "#fff",
+            fontWeight: 800,
+            fontSize: "14px",
+            letterSpacing: "1px",
+            opacity: skipOpacity,
+          }}
+        >
+          SKIP
+        </motion.div>
+      )}
 
       <h2
         style={{
@@ -100,7 +108,6 @@ const JobCard = ({
           fontSize: "28px",
           fontWeight: "700",
           color: "#ffffff",
-          letterSpacing: "-0.5px",
         }}
       >
         {job.title}
@@ -135,10 +142,7 @@ const JobCard = ({
               background: "rgba(255, 255, 255, 0.25)",
               color: "#ffffff",
               borderRadius: "999px",
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",
               border: "1px solid rgba(255, 255, 255, 0.3)",
-              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
             }}
           >
             {tag}
@@ -146,7 +150,6 @@ const JobCard = ({
         ))}
       </div>
 
-      {/* View Details */}
       <button
         onClick={onViewDetails}
         style={{
@@ -164,46 +167,48 @@ const JobCard = ({
         View Details
       </button>
 
-      <div
-        style={{
-          marginTop: "24px",
-          display: "flex",
-          gap: "16px",
-        }}
-      >
-        <button
-          onClick={onSkip}
+      {!readOnly && (
+        <div
           style={{
-            flex: 1,
-            padding: "16px 24px",
-            borderRadius: "16px",
-            border: "2px solid rgba(255, 255, 255, 0.3)",
-            background: "rgba(255, 255, 255, 0.1)",
-            color: "#ffffff",
-            fontSize: "16px",
-            fontWeight: "700",
+            marginTop: "24px",
+            display: "flex",
+            gap: "16px",
           }}
         >
-          ❌ Skip
-        </button>
+          <button
+            onClick={onSkip}
+            style={{
+              flex: 1,
+              padding: "16px 24px",
+              borderRadius: "16px",
+              border: "2px solid rgba(255, 255, 255, 0.3)",
+              background: "rgba(255, 255, 255, 0.1)",
+              color: "#ffffff",
+              fontSize: "16px",
+              fontWeight: "700",
+            }}
+          >
+            Skip
+          </button>
 
-        <button
-          onClick={onInterested}
-          style={{
-            flex: 1,
-            padding: "16px 24px",
-            borderRadius: "16px",
-            border: "none",
-            background:
-              "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-            color: "#ffffff",
-            fontSize: "16px",
-            fontWeight: "700",
-          }}
-        >
-          ✅ Interested
-        </button>
-      </div>
+          <button
+            onClick={onInterested}
+            style={{
+              flex: 1,
+              padding: "16px 24px",
+              borderRadius: "16px",
+              border: "none",
+              background:
+                "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+              color: "#ffffff",
+              fontSize: "16px",
+              fontWeight: "700",
+            }}
+          >
+          Interested
+          </button>
+        </div>
+      )}
     </motion.div>
   );
 };

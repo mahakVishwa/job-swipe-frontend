@@ -7,6 +7,8 @@ import JobDetailModal from "../components/job/JobDetailModal";
 import ConfirmApplyModal from "../components/job/ConfirmApplyModal";
 import { calculateATS } from "../utils/ats.mock";
 import { AnimatePresence } from "framer-motion";
+import { addAppliedJob } from "../utils/savedJobs";
+
 
 const JobSwipe = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -35,18 +37,20 @@ const JobSwipe = () => {
   };
 
   const confirmApply = () => {
-    if (!pendingJob) return;
+  if (!pendingJob) return;
 
-    const ats = calculateATS(
-      "react javascript css html git python django api backend docker data cloud ml",
-      currentJob.atsKeywords
+  const ats = calculateATS(
+    "react javascript css html git python django api backend docker data cloud ml",
+    pendingJob.atsKeywords
   );
 
+  addAppliedJob(pendingJob); // 👈 THIS is the functionality
 
-    setAppliedJob(pendingJob);
-    setAtsResult(ats);
-    setPendingJob(null);
-  };
+  setAppliedJob(pendingJob);
+  setAtsResult(ats);
+  setPendingJob(null);
+};
+
 
   const cancelApply = () => {
     setPendingJob(null);

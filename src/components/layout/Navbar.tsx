@@ -1,7 +1,15 @@
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const goTo = (path: string) => {
+    navigate(path);
+    setOpen(false); // close mobile menu after click
+  };
 
   return (
     <nav
@@ -27,7 +35,9 @@ const Navbar = () => {
           fontWeight: 800,
           color: "#fff",
           letterSpacing: "-0.5px",
+          cursor: "pointer",
         }}
+        onClick={() => goTo("/")}
       >
         InterWeU
       </div>
@@ -41,9 +51,21 @@ const Navbar = () => {
         }}
         className="nav-links"
       >
-        <NavItem label="Jobs" active />
-        <NavItem label="Applications" />
-        <NavItem label="Profile" />
+        <NavItem
+          label="Jobs"
+          active={location.pathname === "/"}
+          onClick={() => goTo("/")}
+        />
+        <NavItem
+          label="Applications"
+          active={location.pathname === "/applications"}
+          onClick={() => goTo("/applications")}
+        />
+        <NavItem
+          label="Profile"
+          active={location.pathname === "/profile"}
+          onClick={() => goTo("/profile")}
+        />
       </div>
 
       {/* Mobile Menu Button */}
@@ -80,9 +102,21 @@ const Navbar = () => {
           }}
           className="mobile-menu"
         >
-          <NavItem label="Jobs" active />
-          <NavItem label="Applications" />
-          <NavItem label="Profile" />
+          <NavItem
+            label="Jobs"
+            active={location.pathname === "/"}
+            onClick={() => goTo("/")}
+          />
+          <NavItem
+            label="Applications"
+            active={location.pathname === "/applications"}
+            onClick={() => goTo("/applications")}
+          />
+          <NavItem
+            label="Profile"
+            active={location.pathname === "/profile"}
+            onClick={() => goTo("/profile")}
+          />
         </div>
       )}
 
@@ -104,12 +138,15 @@ const Navbar = () => {
 const NavItem = ({
   label,
   active = false,
+  onClick,
 }: {
   label: string;
   active?: boolean;
+  onClick: () => void;
 }) => {
   return (
     <span
+      onClick={onClick}
       style={{
         color: active ? "#ffffff" : "rgba(255,255,255,0.7)",
         fontWeight: active ? 700 : 500,
