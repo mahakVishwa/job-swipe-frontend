@@ -16,19 +16,26 @@ const AppliedJobs = () => {
 
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
-          gap: "28px",
-          justifyItems: "center",
-          marginTop: "32px",
+          maxWidth: "1100px",
+          margin: "0 auto",
         }}>
-        {jobs.map((job) => (
-          <JobCard
-            key={job.id}
-            job={job}
-            readOnly
-            onViewDetails={() => {}}
-          />))}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: "28px",
+            justifyItems: "center",
+            marginTop: "32px",
+          }}>
+          {jobs.map((job) => (
+            <JobCard
+              key={job.id}
+              job={job}
+              readOnly
+              onViewDetails={() => {}}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
